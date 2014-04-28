@@ -22,20 +22,30 @@ How to deploy
 - deploy the app normally with git push in your heroku git URL
 
 - create new database
+
     `$ heroku addons:add heroku-postgresql:dev`
 
 - get your database URL
+
     `$ heroku config | grep HEROKU_POSTGRESQL`
 
-- set the variables (`heroku config:set`):
+- set the variables (`$ heroku config:set`):
     - `DBURL`: url to your database from previous step, change `postgres://...` to `postgresql://...` (format: `postgresql://<username>:<password>@<host>:<port>/<database>`)
-    - `buildbotURL`: url to your heroku application. e.g: http://buildbot-demo.herokuapp.com/
+    - `buildbotURL`: url to your heroku application.
     - `PING_DELAY`: the number of seconds between self wakeup pings (optional)
+    - example: 
+
+        ```
+        $ heroku config:set DBURL=postgresql://user3123:passkja83kd8@ec2-117-21-174-214.compute-1.amazonaws.com:6212/db982398
+        $ heroku config:set buildbotURL=http://buildbot-demo.herokuapp.com/
+        ```
 
 - run once the db upgrade:
+
     `$ heroku run buildbot upgrade-master master`
 
 - you can now make sure everything looks good using
+
     `$ heroku logs`
 
 Publishing changes to buildbot
@@ -43,8 +53,8 @@ Publishing changes to buildbot
 The application includes a copy of buildbot, so that we can show features not yet merged into upstream.
 You can edit `.gitmodules` in order to point to your own fork of buildbot. Then update your environment:
 
-    git submodule init
-    git submodule update
+    $ git submodule init
+    $ git submodule update
 
 
 Running it locally
@@ -54,16 +64,16 @@ You will have to install the following packages on your system:
 
    - python
    - python-virtualenv
-   - node.js + npm (use `ppa:chris-lea/node.js` on ubuntu)
-   - bower ( `npm install -g bower`)
-   - grunt-cli ( `npm install -g grunt-cli`)
+   - node.js + npm (use `$ ppa:chris-lea/node.js` on ubuntu)
+   - bower ( `$ npm install -g bower`)
+   - grunt-cli ( `$ npm install -g grunt-cli`)
 
 Then the app can be run locally with:
 
-    virtualenv sandbox
-    . sandbox/bin/activate
-    pip install `cat requirements_dev.txt`
-    foreman start
+    $ virtualenv sandbox
+    $ . sandbox/bin/activate
+    $ pip install `cat requirements_dev.txt`
+    $ twistd -ny master/buildbot.tac
 
 Deploy you changes
 ==================
@@ -71,10 +81,10 @@ Deploy you changes
 As Heroku python environment does not include a version of npm and bower, it is not capable of building automatically the web app upon deployment. This is why a pre-compiled version of the web app and plugins is included in the app base repository.
 In order to update the pre-compiled environment:
 
-    cd built_frontend
-    ./update.sh
+    $ cd built_frontend
+    $ ./update.sh
     (then commit the changes, and deploy them)
 
 if you made changes to buildbot, dont forget to commit the `git submodule` pointer to buildbot
 
-    git commit buildbot
+    $ git commit buildbot
