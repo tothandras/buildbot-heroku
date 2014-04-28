@@ -15,4 +15,3 @@ mkdir -p buildbot-codeparameter
 cp -rf buildbot-codeparameter-*/* buildbot-codeparameter/
 rm -rf buildbot-codeparameter-*
 git add buildbot-codeparameter buildbot-www
-

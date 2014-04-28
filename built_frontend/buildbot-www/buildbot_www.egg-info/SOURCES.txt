@@ -16,5 +16,6 @@ buildbot_www/fonts/fontawesome-webfont.svg
 buildbot_www/fonts/fontawesome-webfont.ttf
 buildbot_www/fonts/fontawesome-webfont.woff
 buildbot_www/img/favicon.ico
+buildbot_www/img/nobody.png
 buildbot_www/scripts/scripts.min.js
 buildbot_www/styles/styles.min.css

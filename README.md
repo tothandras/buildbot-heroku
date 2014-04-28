@@ -21,18 +21,22 @@ How to deploy
 - please read and understand the heroku python tutorial before starting this one.
 - deploy the app normally with git push in your heroku git URL
 
-- run once the db upgrade:
+- create new database
+    `$ heroku addons:add heroku-postgresql:dev`
 
-    heroku run buildbot upgrade-master master
+- get your database URL
+    `$ heroku config | grep HEROKU_POSTGRESQL`
 
 - set the variables (`heroku config:set`):
-    - `DBURL`: url to your database, including user and password (optional)
-    - `buildbotURL`: url to your heroku application. e.g: http://buildbot-nine-demo.herokuapp.com/
+    - `DBURL`: url to your database from previous step, change `postgres://...` to `postgresql://...` (format: `postgresql://<username>:<password>@<host>:<port>/<database>`)
+    - `buildbotURL`: url to your heroku application. e.g: http://buildbot-demo.herokuapp.com/
     - `PING_DELAY`: the number of seconds between self wakeup pings (optional)
 
-- you can now make sure everything looks good using
+- run once the db upgrade:
+    `$ heroku run buildbot upgrade-master master`
 
-    heroku logs
+- you can now make sure everything looks good using
+    `$ heroku logs`
 
 Publishing changes to buildbot
 ==============================
